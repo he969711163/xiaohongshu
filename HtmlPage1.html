@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -88,16 +88,20 @@
     <script>
         //全局变量
         var iphone = "";
+        var project_id = "10100";
         $(document).ready(function () {
             iphone = "";
+            if (getUrlParam('code') != null) {
+                project_id = getUrlParam('code');
+            }
         });
 
         //树状图读取
         function getCore() {
             var token = "LcfnHR0PSQsGBFqbr9u+2p0cneqgRHGqlkRu3JcYwrDEWm/w65BkxGo4Ebd3LrjpxiQi0NaHicqoQLC5aKAqfSLcVbtzty7JtIsaVxwO3KXkUfo0Ut9OdehloYM2Qzl+p87CFH8PQEPAls6YrI8rXUpiB3UIrkbV5Pj1k5L6MIo";
-            var project_id = "10100";
             var phone_num = $('#phone').val();
             var url = "http://api.sqhyw.net:90/api/get_message?token=" + token + "&project_id=" + project_id + "&phone_num=" + phone_num;
+            console.log(url)
             if (phone_num == '' || phone_num.length != 11) {
                 alert('请输入正确的手机号');
                 return false;
@@ -139,6 +143,12 @@
             }
         };
 
+        //地址栏参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
     </script>
 </body>
 </html>
